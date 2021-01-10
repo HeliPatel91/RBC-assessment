@@ -63,7 +63,7 @@ These instructions will get you a copy of the project and enable you to run on y
 
 *   Open "http://localhost:8080/swagger-ui.html"
 
-<img src="https://github.com/HeliPatel91/RBC-assessment/Screenshots/Swagger_UI.png"/>
+<img src="Screenshots\Swagger_UI.png"/>
 
 *   Try uploading the data file in below 
 

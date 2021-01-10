@@ -24,10 +24,13 @@ public class CSVHelper {
     private static DecimalFormat decimalFormat = new DecimalFormat("0.000000");
 
     public static String TYPE = "text/csv";
+
+    //Can verify if the file has all the headers present in correct order or not
     static String[] HEADERS = { "quarter" , "stock", "date", "open", "high", "low", "close", "volume", "percent_change_price",
                             "percent_change_volume_over_last_wk", "previous_weeks_volume", "next_weeks_open", "next_weeks_close",
                             "percent_change_next_weeks_price", "days_to_next_dividend", "percent_return_next_dividend"};
 
+    //This method verify if the content of the file is CSV or not
     public static boolean checkCSVFormat(MultipartFile file) {
         if (!TYPE.equals(file.getContentType())) {
             return false;
@@ -35,6 +38,7 @@ public class CSVHelper {
         return true;
     }
 
+    //This method converts the CSV records to entity for each records
     public static List<WeeklyIndex> mapDataToModel(InputStream inputStream) {
         logger.info("Converting input data to model");
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
@@ -59,6 +63,7 @@ public class CSVHelper {
         }
     }
 
+    //This method converts single CSV record to entity object
     public static WeeklyIndex convertCsvRecordToWeeklyIndex(CSVRecord csvRecord){
         return new WeeklyIndex(Integer.parseInt(csvRecord.get("quarter")),
                 csvRecord.get("stock") != null ? csvRecord.get("stock") : "",
@@ -78,9 +83,9 @@ public class CSVHelper {
                 Double.parseDouble(csvRecord.get("percent_return_next_dividend")));
     }
 
+    //This method removes the $ from certain fields so we can store in appropriate data type
     public static String removeDollar(String value){
-        String dollarRemoved = value.replace("$", "");
-        return dollarRemoved;
+        return value.replace("$", "");
     }
 
     //TODO: Future functionality to add all error records in new table

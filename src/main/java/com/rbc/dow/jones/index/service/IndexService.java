@@ -26,6 +26,7 @@ public class IndexService {
         this.indexRepository = indexRepository;
     }
 
+    //This service method is responsible for csv to entity object coversion and storing in DB
     public void uploadData(MultipartFile file) throws RecordAlreadyExists{
         try {
             List<WeeklyIndex> bulkData = CSVHelper.mapDataToModel(file.getInputStream());
@@ -46,8 +47,8 @@ public class IndexService {
         }
     }
 
+    //this method is responsible for inserting data in DB after checking duplicates
     public void insertData(WeeklyIndex index) throws RecordAlreadyExists {
-            logger.info("Inserting record in the database");
             if(checkIfAlreadyExists(index.getStock(), index.getDate())) {
                 logger.error("Record already exists {} {} ",index.getStock(),index.getDate());
                 throw new RecordAlreadyExists("The record with stock ticker " + index.getStock() + " and date exists " + index.getDate());
@@ -55,14 +56,17 @@ public class IndexService {
             indexRepository.save(index);
     }
 
+    //Unused at the moment but can be used to retrieve complete data
     public List<WeeklyIndex> getAll(){
         return indexRepository.findAll();
     }
 
+    //repository get operation to retrieve data by stockTicker
     public List<WeeklyIndex> getByStockTicker(String stockTicker) {
         return indexRepository.findByStock(stockTicker);
     }
 
+    //checking if record with same stock and date exists
     public boolean checkIfAlreadyExists(String stock, String date){
         WeeklyIndexId primaryKey = new WeeklyIndexId(stock,date);
         return indexRepository.findById(primaryKey).isPresent();

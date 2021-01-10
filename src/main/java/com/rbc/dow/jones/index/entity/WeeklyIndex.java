@@ -13,14 +13,19 @@ public class WeeklyIndex {
 
     public WeeklyIndex() {}
 
+    //int because quarter can be 1-4
     private int quarter;
 
+    //Selected stock and date as composite primary key as the data set can not have multiple entry
+    //for the same stock and date
     @Id
     private String stock;
 
     @Id
+    //TODO: type can be changed to java.sql.Date with format of yyyy-mm--dd
     private String date;
 
+    //BigDecimal stores digits as is
     private BigDecimal open;
 
     private BigDecimal high;
@@ -29,17 +34,22 @@ public class WeeklyIndex {
 
     private BigDecimal close;
 
+    //Volume can not be in fractions and Long is suitable for it
     private Long volume;
 
+    //double to preserves precisions
     @Column(name = "percent_change_price")
     private double percentChangePrice;
 
+    //String as data set has few empty values for this field
     @Column(name = "percent_change_volume_over_last_wk")
     private String percentChangeVolumeOverLastWk;
 
+    //String as data set has few empty values for this field
     @Column(name = "previous_weeks_volume")
     private String previousWeeksVolume;
 
+    //BigDecimal stores digits as is
     @Column(name = "next_weeks_open")
     private BigDecimal nextWeeksOpen;
 

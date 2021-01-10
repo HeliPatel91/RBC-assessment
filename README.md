@@ -18,9 +18,9 @@
 *   [Apache Commons CSV](https://commons.apache.org/proper/commons-csv/) - Commons CSV reads and writes files in variations of the Comma Separated Value (CSV) format.
 
 ### Others 
-* 	[git](https://git-scm.com/) - Free and Open-Source distributed version control system
+* 	[GIT](https://git-scm.com/) - Free and Open-Source distributed version control system
 
-## Features and To-Do
+## Features
 
 * 	[x] REST API
 * 	[x] Bulk CSV data upload
@@ -29,16 +29,17 @@
 * 	[x] Unit Tests
 * 	[x] Software documentation - [Swagger](https://swagger.io/)
 * 	[x] H2 console to query and view DB data
+* 	[x] [Docker](https://www.docker.com/) to deploy on a container
+
+### Future enhancements
 * 	[ ] External Database instead of in-memory
 *   [ ] Functional Tests, Integration Tests
-* 	[ ] Validate each field for not null and not empty
-*   [ ] New table for error records which has data issues
+* 	[ ] Sanity check of each field in the data (current data set has only 2 empty columns)
+*   [ ] New table to capture error records for analysis
 *   [ ] Add CSV Download functionality to retrieve all records in CSV file
-*   [ ] Support for more currencies
 *   [ ] Date format can be changed to appropriate format to perform calculation
 * 	[ ] [Spring Profiles](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-profiles) (dev, production, qa, staging, test)
 * 	[ ] API [Rate Limiting](https://en.wikipedia.org/wiki/Rate_limiting)
-* 	[ ] [Docker](https://www.docker.com/) to deploy on a container
 * 	[ ] [Javadoc](https://en.wikipedia.org/wiki/Javadoc)
 * 	[ ] [Spring Security](https://spring.io/projects/spring-security)
 * 	[ ] [HTTPS](https://en.wikipedia.org/wiki/HTTPS) with (self-signed certificate)[https://en.wikipedia.org/wiki/Self-signed_certificate]
@@ -58,6 +59,24 @@ These instructions will get you a copy of the project and enable you to run on y
 	* Select the project
 * 	Choose the Spring Boot Application file (DowJonesIndexApplication.java)
 * 	Right Click on the file and Run as Java Application
+
+### Running the application with Maven
+```shell
+$ git clone https://github.com/HeliPatel91/RBC-assessment.git
+$ cd RBC-assessment
+$ mvn clean install
+$ cd target
+$ java -jar RBC-assessment-1.0-SNAPSHOT.jar
+```
+
+### Running the application via Docker
+```shell
+$ git clone https://github.com/HeliPatel91/RBC-assessment.git
+$ cd RBC-assessment
+$ mvn clean install
+$ docker build . -t rbc-assessment (make sure docker desktop is running)
+$ docker run -p 8080:8080 rbc-assessment
+```
 
 ## Explore Rest APIs
 
@@ -102,7 +121,11 @@ Fill the login form as follows and click on Connect:
 
 *   Total count is 750 as the data set provided has 750 records
 
-<img src="Screenshots\H2_console_after_bulk_upload.png"/>
+<img src="Screenshots\H2_count_after_bulk_upload.png"/>
+
+*   Try uploading file in different format
+
+<img src="Screenshots\wrong_format_file_upload.png"/>
 
 ### Testing of stock retrieval functionality
 
@@ -147,7 +170,7 @@ Fill the login form as follows and click on Connect:
 
 *   Verify data uploaded in the database
 
-<img src="Screenshots\iH2_console_after_upload_insert.png"/>
+<img src="Screenshots\H2_console_after_upload_insert.png"/>
 
 
 

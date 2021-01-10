@@ -65,6 +65,93 @@ These instructions will get you a copy of the project and enable you to run on y
 
 <img src="Screenshots\Swagger_UI.png"/>
 
-*   Try uploading the data file in below 
+##### Accessing uploaded Data in H2 Database
 
-##### Accessing Data in H2 Database
+###### H2 Console
+
+URL to access H2 console: **http://localhost:8080/h2-console**
+
+Fill the login form as follows and click on Connect:
+
+* 	Saved Settings: **Generic H2 (Embedded)**
+* 	Setting Name: **Generic H2 (Embedded)**
+* 	Driver class: **org.h2.Driver**
+* 	JDBC URL: **jdbc:h2:mem:indexDb**
+* 	User Name: **rbc-user**
+* 	Password: **rbc-pass**
+
+<img src="Screenshots\H2_console_connection_details.png"/>
+
+*   Verify WEEKLY_INDEX table is created
+
+<img src="Screenshots\H2_console_no_data.png"/>
+
+### Testing of Bulk Upload functionality
+
+*   Try uploading the data file in CSV format in the UploadController -> /api/v1/upload API
+
+<img src="Screenshots\Bulk_upload_API.png"/>
+
+*   Verify the upload is successful
+
+<img src="Screenshots\Bulk_upload_API_successful.png"/>
+
+*   Verify the uploaded data is added in the database
+
+<img src="Screenshots\Bulk_data_uploaded_H2.png"/>
+
+*   Total count is 750 as the data set provided has 750 records
+
+<img src="Screenshots\H2_console_after_bulk_upload.png"/>
+
+### Testing of stock retrieval functionality
+
+*   Use IndexController -> /api/v1/stock/ GET API with passing stockTicker = AA
+
+<img src="Screenshots\getByStock_API.png"/>
+
+*   Verify response has 25 elements as it returns both 1 and 2 quarters AA stock
+
+*   Try with stockTicker which does not exists -> it should return empty list
+
+### Testing of single record insertion functionality
+
+*   Use IndexController -> /api/v1/stock/ POST API with payload json as below
+
+<img src="Screenshots\insertRecord_API.png"/>
+
+*   Request body
+
+```json
+{
+    "quarter": 1,
+    "stock": "AA",
+    "date": "01/07/2011",
+    "open": 15.82,
+    "high": 16.72,
+    "low": 15.78,
+    "close": 16.42,
+    "volume": 239655616,
+    "percentChangePrice": 3.79267,
+    "percentChangeVolumeOverLastWk": "",
+    "previousWeeksVolume": "",
+    "nextWeeksOpen": 16.71,
+    "nextWeeksClose": 15.97,
+    "percentChangeNextWeeksPrice": -4.42849,
+    "daysToNextDividend": 26,
+    "percentReturnNextDividend": 0.182704
+}
+```
+
+<img src="Screenshots\insertRecord_API_successful.png"/>
+
+*   Verify data uploaded in the database
+
+<img src="Screenshots\iH2_console_after_upload_insert.png"/>
+
+
+
+
+
+
+
